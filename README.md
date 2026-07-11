@@ -1,5 +1,4 @@
 # Weather Prediction Using Machine Learning
-**Muhammad Waleed Dar | AI/ML Internship — Zee Outsourcing Solutions**
 
 ---
 
