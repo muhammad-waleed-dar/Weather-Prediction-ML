@@ -69,7 +69,7 @@ This project applies Machine Learning techniques to predict whether it will rain
 | 1 | Dataset loading and shape verification |
 | 2 | Basic exploration: `info()`, `describe()`, `head()`, `tail()`, `nunique()` |
 | 3 | Duplicate record check — 0 duplicates found |
-| 4 | Null value detection — missing values in 20/23 columns |
+| 4 | Null value detection — missing values in 21/23 columns |
 | 5 | Null value handling — mode for categorical, median for numerical |
 | 6 | Label Encoding — 7 categorical columns converted to numeric |
 | 7 | MinMax Normalization — numeric features scaled to [0,1] (target excluded) |
