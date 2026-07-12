@@ -19,125 +19,100 @@ This project applies Machine Learning techniques to predict whether it will rain
 | **Phase 3** | Model Evaluation (Accuracy, Precision, Recall, F1, ROC-AUC) | ⏳ Upcoming |
 | **Phase 4** | Hyperparameter Tuning | ⏳ Upcoming |
 | **Phase 5** | Feature Importance Analysis | ⏳ Upcoming |
-| **Phase 6** | Model Saving / Deployment (optional) | ⏳ Upcoming |
+| **Phase 6** | Model Saving / Deployment | ⏳ Upcoming |
  
 *This README will be updated as each phase is completed to reflect the latest project state.*
- 
----
- 
 
-## 1. Dataset Selection
+---
+ 
+## Dataset
 | Detail | Info |
 |--------|------|
-| **Source** | Kaggle — Rain in Australia Dataset |
-| **Link** | https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package |
-| **File** | weatherAUS.csv |
-| **Justification** | Dataset contains real-world weather observations with missing values, class imbalance, and categorical features — ideal for practicing complete preprocessing pipeline |
-
----
-
-## 2. Data Understanding
-| Property | Value |
-|----------|-------|
-| **Rows** | 145,460 |
-| **Columns** | 23 |
-| **Target Variable** | RainTomorrow (Binary: 0 = No Rain, 1 = Rain) |
-| **Feature Types** | 16 numerical (float64), 7 categorical (object) |
-| **Duplicates** | 0 |
-| **Missing Values** | Present in multiple columns (e.g. Sunshine: 69,835, Cloud9am: 55,888) |
-| **Class Distribution** | No Rain: ~78%, Rain: ~22% (imbalanced) |
-
+| **Source** | [Kaggle — Rain in Australia](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package) |
+| **File** | `weatherAUS.csv` |
+| **Size** | 145,460 rows × 23 columns |
+| **Target Variable** | `RainTomorrow` (Binary: 0 = No Rain, 1 = Rain) |
+| **Date Range** | 2007 – 2017 (10 years, multiple Australian locations) |
+| **Problem Type** | Binary Classification |
+ 
+### Why this dataset?
+`weatherAUS.csv` contains real-world weather observations with missing values, categorical features, and class imbalance — making it well-suited for practicing a complete, realistic preprocessing and modeling pipeline rather than a "clean" toy dataset.
+ 
 ### Feature Descriptions
 | Column | Description |
 |--------|-------------|
 | Date | Date of observation |
 | Location | Weather station location |
-| MinTemp | Minimum temperature (°C) |
-| MaxTemp | Maximum temperature (°C) |
+| MinTemp / MaxTemp | Minimum / Maximum temperature (°C) |
 | Rainfall | Rainfall recorded (mm) |
 | Evaporation | Pan evaporation (mm) |
 | Sunshine | Hours of bright sunshine |
-| WindGustDir | Direction of strongest wind gust |
-| WindGustSpeed | Speed of strongest wind gust (km/h) |
-| WindDir9am | Wind direction at 9am |
-| WindDir3pm | Wind direction at 3pm |
-| WindSpeed9am | Wind speed at 9am (km/h) |
-| WindSpeed3pm | Wind speed at 3pm (km/h) |
-| Humidity9am | Humidity at 9am (%) |
-| Humidity3pm | Humidity at 3pm (%) |
-| Pressure9am | Atmospheric pressure at 9am (hPa) |
-| Pressure3pm | Atmospheric pressure at 3pm (hPa) |
-| Cloud9am | Cloud cover at 9am (oktas) |
-| Cloud3pm | Cloud cover at 3pm (oktas) |
-| Temp9am | Temperature at 9am (°C) |
-| Temp3pm | Temperature at 3pm (°C) |
+| WindGustDir / WindGustSpeed | Direction / speed of strongest wind gust |
+| WindDir9am / WindDir3pm | Wind direction at 9am / 3pm |
+| WindSpeed9am / WindSpeed3pm | Wind speed at 9am / 3pm (km/h) |
+| Humidity9am / Humidity3pm | Humidity at 9am / 3pm (%) |
+| Pressure9am / Pressure3pm | Atmospheric pressure at 9am / 3pm (hPa) |
+| Cloud9am / Cloud3pm | Cloud cover at 9am / 3pm (oktas) |
+| Temp9am / Temp3pm | Temperature at 9am / 3pm (°C) |
 | RainToday | Did it rain today? (Yes/No) |
-| RainTomorrow | **TARGET** — Will it rain tomorrow? (Yes/No) |
-
+| RainTomorrow | **Target** — Will it rain tomorrow? (Yes/No) |
+ 
 ---
-
-## 3. Data Preprocessing (13 Steps)
-
+ 
+## Phase 1: EDA & Data Preprocessing ✅
+ 
+**Notebook:** [`Phase1-EDA/EDA.ipynb`](./Phase1-EDA/EDA.ipynb)
+ 
+13-step preprocessing pipeline:
+ 
 | Step | Description |
 |------|-------------|
 | 1 | Dataset loading and shape verification |
-| 2 | Basic exploration: info(), describe(), columns, dtypes, head(), tail(), nunique() |
-| 3 | Duplicate record check — 0 duplicates found, no removal needed |
-| 4 | Null value detection — missing values found in 20 out of 23 columns |
-| 5 | Null value handling — mode for categorical columns, median for numerical columns |
-| 6 | Label Encoding — converted 7 categorical columns to numeric |
-| 7 | MinMax Normalization — scaled all numerical features to [0,1] range (target excluded) |
-| 8 | Correlation matrix — visualized feature relationships using heatmap |
-| 9 | Dropped 'Date' column — not relevant for ML model training |
-| 10 | Outlier detection and removal — IQR method applied on Rainfall column (before/after boxplots) |
+| 2 | Basic exploration: `info()`, `describe()`, `head()`, `tail()`, `nunique()` |
+| 3 | Duplicate record check — 0 duplicates found |
+| 4 | Null value detection — missing values in 20/23 columns |
+| 5 | Null value handling — mode for categorical, median for numerical |
+| 6 | Label Encoding — 7 categorical columns converted to numeric |
+| 7 | MinMax Normalization — numeric features scaled to [0,1] (target excluded) |
+| 8 | Correlation matrix — feature relationships visualized via heatmap |
+| 9 | Dropped `Date` column — not directly useful in raw form |
+| 10 | Outlier detection & removal — IQR method on `Rainfall` |
 | 11 | Class imbalance analysis — No Rain: 95,420 vs Rain: 18,228 |
-| 12 | Feature/Target split — X (21 features) and y (RainTomorrow) |
-| 13 | SMOTE-Tomek applied — balanced classes to 95,257 each |
-
-### Justification for SMOTE-Tomek
-The dataset was heavily imbalanced (~78% No Rain vs ~22% Rain). Training a model on imbalanced data would result in biased predictions favoring the majority class. SMOTE-Tomek was applied to oversample the minority class (Rain) while cleaning borderline samples, resulting in a balanced dataset of 95,257 samples per class.
-
+| 12 | Feature/Target split — X (21 features), y (`RainTomorrow`) |
+| 13 | SMOTE-Tomek — balanced dataset to 95,257 samples per class |
+ 
+**Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
+ 
 ---
-
-## 4. Libraries & Tools
+ 
+## Libraries & Tools
 | Category | Tools |
 |----------|-------|
 | Language | Python 3 |
 | Data Manipulation | Pandas, NumPy |
-| Preprocessing & ML | Scikit-learn |
+| ML & Preprocessing | Scikit-learn |
 | Class Imbalance | Imbalanced-learn (SMOTE-Tomek) |
 | Visualization | Matplotlib, Seaborn |
 | Environment | Jupyter Notebook, VS Code |
 | Version Control | Git & GitHub |
 
 ---
-
-## 5. Repository Structure
-
+ 
+## Repository Structure
 ```
 Weather-Prediction-ML/
 ├── Phase1-EDA/
 │   ├── EDA.ipynb
 │   ├── weatherAUS.csv
 │   └── report.pdf
-├── Phase2-/    (empty for now)
-├── Phase3-/       (empty for now)
+├── Phase2-ModelTraining/     (upcoming)
+├── Phase3-Evaluation/        (upcoming)
+├── .gitignore
 └── README.md
-
 ```
+*Structure will grow as each phase is added — this section is updated per phase.*
 
----
-
-## 6. How to Run
-1. Clone the repo:
-```bash
-git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
-```
-2. Open `EDA.ipynb` in VS Code or Jupyter Notebook
-3. Ensure `weatherAUS.csv` is in the same folder
-4. Run all cells sequentially
-
----
+ ----
 
 ## 7. Challenges Encountered
 - **High missing values** in Sunshine (48%) and Cloud columns (38-41%) — handled using median/mode imputation
