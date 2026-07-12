@@ -3,9 +3,46 @@
 ---
 
 ## Project Overview
-This project applies Machine Learning techniques to predict whether it will rain tomorrow based on historical daily weather observations from Australia. This repository contains **Phase 1: Dataset Selection & Data Preprocessing**, which focuses on preparing a clean, machine-learning-ready dataset.
+This project applies Machine Learning techniques to predict whether it will rain tomorrow based on historical daily weather observations from Australia. This repository contains **Phase 1: Dataset Selection & Data Preprocessing**, which focuses on preparing a clean, machine-learning-ready dataset. This project applies Machine Learning to predict whether it will rain tomorrow (`RainTomorrow`) based on historical daily weather observations from Australia. It is being built as a multi-phase project covering the full ML lifecycle — from data preprocessing to model training, evaluation, and deployment.
+
+
+**Motivation:** I previously built a Smart Weather Monitoring Station using Arduino and C++. This project extends that interest into the Machine Learning domain by using historical weather data to make predictions rather than just recording live sensor readings.
+
+ 
 
 ---
+
+ 
+
+## Project Roadmap
+
+ 
+
+| Phase | Focus | Status |
+
+|-------|-------|--------|
+
+| **Phase 1** | Dataset Selection, EDA & Data Preprocessing | ✅ Complete |
+
+| **Phase 2** | Model Training (Logistic Regression, Decision Tree, Random Forest) | Upcoming |
+
+| **Phase 3** | Model Evaluation (Accuracy, Precision, Recall, F1, ROC-AUC) | Upcoming |
+
+| **Phase 4** | Hyperparameter Tuning | Upcoming |
+
+| **Phase 5** | Feature Importance Analysis | Upcoming |
+
+| **Phase 6** | Model Saving / Deployment | Upcoming |
+
+ 
+
+*This README will be updated as each phase is completed to reflect the latest project state.*
+
+ 
+
+---
+
+ 
 
 ## 1. Dataset Selection
 | Detail | Info |
