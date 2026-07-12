@@ -97,10 +97,14 @@ The dataset was heavily imbalanced (~78% No Rain vs ~22% Rain). Training a model
 
 ```
 Weather-Prediction-ML/
-├── EDA.ipynb              # Phase 1: Complete EDA & Preprocessing Notebook
-├── weatherAUS.csv         # Dataset (Kaggle — Rain in Australia)
-├── report.pdf             # One-page project report (PDF)
-└── README.md              # Project documentation
+├── Phase1-EDA/
+│   ├── EDA.ipynb
+│   ├── weatherAUS.csv
+│   └── report.pdf
+├── Phase2-/    (empty for now)
+├── Phase3-/       (empty for now)
+└── README.md
+
 ```
 
 ---
