@@ -5,7 +5,6 @@
 ## Project Overview
 This project applies Machine Learning techniques to predict whether it will rain tomorrow based on historical daily weather observations from Australia. This repository contains **Phase 1: Dataset Selection & Data Preprocessing**, which focuses on preparing a clean, machine-learning-ready dataset. This project applies Machine Learning to predict whether it will rain tomorrow (`RainTomorrow`) based on historical daily weather observations from Australia. It is being built as a multi-phase project covering the full ML lifecycle — from data preprocessing to model training, evaluation, and deployment.
 
-
 **Motivation:** I previously built a Smart Weather Monitoring Station using Arduino and C++. This project extends that interest into the Machine Learning domain by using historical weather data to make predictions rather than just recording live sensor readings.
 
 ---
@@ -112,9 +111,10 @@ Weather-Prediction-ML/
 ```
 *Structure will grow as each phase is added — this section is updated per phase.*
 
- ----
+---
+ 
+## Challenges Encountered
+- **High missing values** — `Sunshine` (48%) and `Cloud9am`/`Cloud3pm` (38–41%) had severe gaps, handled via median/mode imputation to preserve dataset size rather than dropping rows/columns outright.
+- **Severe class imbalance** — ~84% No Rain vs ~16% Rain (post-cleaning), resolved using SMOTE-Tomek.
+- **Mixed data types** — 7 categorical columns required Label Encoding before any numeric operations or modeling could proceed.
 
-## 7. Challenges Encountered
-- **High missing values** in Sunshine (48%) and Cloud columns (38-41%) — handled using median/mode imputation
-- **Severe class imbalance** (~78% No Rain) — resolved using SMOTE-Tomek
-- **Mixed data types** — categorical columns required Label Encoding before model training
