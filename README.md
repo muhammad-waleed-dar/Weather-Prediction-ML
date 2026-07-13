@@ -78,7 +78,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 | 10 | MinMax Normalization — numeric features scaled to [0,1] (target excluded) |
 | 11 | Class imbalance analysis — No Rain: 95,420 vs Rain: 18,228 |
 | 12 | Feature/Target split — X (21 features), y (`RainTomorrow`) |
-| 13 | SMOTE-Tomek — balanced dataset to 95,257 samples per class |
+| 13 | SMOTE-Tomek — balanced dataset to 95,251 samples per class |
  
 **Why outlier removal before scaling?** MinMaxScaler sets its [0,1] range from each column's min/max. Removing extreme Rainfall outliers (e.g. 371mm) *before* scaling keeps those bounds reflective of everyday values rather than being stretched by rare storm events.
  
