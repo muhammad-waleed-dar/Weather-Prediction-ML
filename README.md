@@ -72,13 +72,15 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 | 4 | Null value detection — missing values in 21/23 columns |
 | 5 | Null value handling — mode for categorical, median for numerical |
 | 6 | Label Encoding — 7 categorical columns converted to numeric |
-| 7 | MinMax Normalization — numeric features scaled to [0,1] (target excluded) |
-| 8 | Correlation matrix — feature relationships visualized via heatmap |
-| 9 | Dropped `Date` column — not directly useful in raw form |
-| 10 | Outlier detection & removal — IQR method on `Rainfall` |
+| 7 | Correlation matrix — feature relationships visualized via heatmap |
+| 8 | Dropped `Date` column — not directly useful in raw form |
+| 9 | Outlier detection & removal — IQR method on `Rainfall` |
+| 10 | MinMax Normalization — numeric features scaled to [0,1] (target excluded) |
 | 11 | Class imbalance analysis — No Rain: 95,420 vs Rain: 18,228 |
 | 12 | Feature/Target split — X (21 features), y (`RainTomorrow`) |
 | 13 | SMOTE-Tomek — balanced dataset to 95,257 samples per class |
+ 
+**Why outlier removal before scaling?** MinMaxScaler sets its [0,1] range from each column's min/max. Removing extreme Rainfall outliers (e.g. 371mm) *before* scaling keeps those bounds reflective of everyday values rather than being stretched by rare storm events.
  
 **Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
  
