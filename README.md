@@ -98,7 +98,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 | Version Control | Git & GitHub |
 
 ---
- 
+
 ## Repository Structure
 ```
 Weather-Prediction-ML/
