@@ -115,7 +115,7 @@ Weather-Prediction-ML/
 
 ---
  
-## How to Run 
+## How to Run
 ```bash
 git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
 cd Weather-Prediction-ML/Phase1-EDA
