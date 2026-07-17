@@ -100,7 +100,6 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 
 ---
 
-```
 ## Repository Structure
 ```
 Weather-Prediction-ML/
