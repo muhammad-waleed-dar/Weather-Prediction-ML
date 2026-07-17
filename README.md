@@ -10,16 +10,17 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 ---
  
 ## Project Roadmap
- 
+
 | Phase | Focus | Status |
 |-------|-------|--------|
 | **Phase 1** | Dataset Selection, EDA & Data Preprocessing | ✅ Complete |
-| **Phase 2** | Model Training (Logistic Regression, Decision Tree, Random Forest) | ⏳ Upcoming |
-| **Phase 3** | Model Evaluation (Accuracy, Precision, Recall, F1, ROC-AUC) | ⏳ Upcoming |
-| **Phase 4** | Hyperparameter Tuning | ⏳ Upcoming |
-| **Phase 5** | Feature Importance Analysis | ⏳ Upcoming |
-| **Phase 6** | Model Saving / Deployment | ⏳ Upcoming |
- 
+| **Phase 2** | Data Visualization & Feature Engineering | ✅ Complete |
+| **Phase 3** | Model Training (Logistic Regression, Decision Tree, Random Forest, etc) | ⏳ Upcoming |
+| **Phase 4** | Model Evaluation (Accuracy, Precision, Recall, F1, ROC-AUC) | ⏳ Upcoming |
+| **Phase 5** | Hyperparameter Tuning | ⏳ Upcoming |
+| **Phase 6** | Feature Importance Analysis | ⏳ Upcoming |
+| **Phase 7** | Model Saving / Deployment | ⏳ Upcoming |
+
 *This README will be updated as each phase is completed to reflect the latest project state.*
 
 ---
