@@ -100,17 +100,6 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 
 ---
 
-## Repository Structure
-```
-Weather-Prediction-ML/
-├── Phase1-EDA/
-│   ├── EDA.ipynb
-│   ├── weatherAUS.csv
-│   └── report.pdf
-├── Phase2-ModelTraining/     (upcoming)
-├── Phase3-Evaluation/        (upcoming)
-├── .gitignore
-└── README.md
 ```
 ## Repository Structure
 ```
