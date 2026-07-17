@@ -84,7 +84,48 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 **Why outlier removal before scaling?** MinMaxScaler sets its [0,1] range from each column's min/max. Removing extreme Rainfall outliers (e.g. 371mm) *before* scaling keeps those bounds reflective of everyday values rather than being stretched by rare storm events.
  
 **Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
+
+---
  
+## Phase 2: Data Visualization & Feature Engineering ✅
+ 
+**Notebook:** [`Phase2-Visualization/Visualization_FeatureEngineering.ipynb`](./Phase2-Visualization/Visualization_FeatureEngineering.ipynb)
+ 
+This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model.
+ 
+### Engineered Features
+ 
+| Feature | Formula / Source | Why |
+|---------|-------------------|-----|
+| `Month`, `Season` | Extracted from `Date` | Weather is seasonal — Phase 1 dropped `Date` entirely, losing this signal |
+| `TempRange` | `MaxTemp - MinTemp` | A large daily swing behaves differently than a stable day |
+| `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
+| `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
+ 
+### Visualizations
+ 
+| # | Plot | Type | Purpose |
+|---|------|------|---------|
+| 1 | RainTomorrow class distribution | Count plot | Confirms class imbalance |
+| 2 | Rainfall distribution | Histogram + KDE | Univariate shape / right-skew check |
+| 3 | Pressure3pm by RainTomorrow | Box plot | Tests "low pressure precedes rain" |
+| 4 | Humidity3pm by RainTomorrow | Box plot | Tests humidity as a rain predictor |
+| 5 | Rain probability by Season | Bar plot | Validates the new `Season` feature |
+| 6 | Humidity3pm vs Pressure3pm | Scatter (hue) | Bivariate class separation |
+| 7 | Humidity3pm by RainTomorrow | Violin plot | Full density shape, not just quartiles |
+| 8 | Pressure3pm density by class | Overlaid KDE | Where the two classes diverge most |
+| 9 | RainToday vs RainTomorrow | Count plot + crosstab | Tests weather "persistence" |
+| 10 | Top 10 Locations by record count | Bar plot | Checks category balance across `Location` |
+| 11 | Monthly rain rate, 2007–2017 | Line plot | Long-term trend, not just single-season snapshot |
+| 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
+| 13 | Correlation heatmap (with new features) | Heatmap | Confirms engineered features add real signal |
+ 
+### Key Findings
+- `Pressure3pm` and `Humidity3pm` show a clear, visible shift between Rain/No-Rain groups across box, violin, and KDE views.
+- `RainToday` shows strong persistence with `RainTomorrow` — one of the most informative categorical features in the dataset.
+- `Season` shows a real difference in rain probability, validating it as a useful engineered feature.
+- `PressureChange` and `HumidityChange` capture directional movement the raw 9am/3pm snapshots miss on their own.
+
 ---
  
 ## Libraries & Tools
