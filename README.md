@@ -38,7 +38,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 ### Why this dataset?
 `weatherAUS.csv` contains real-world weather observations with missing values, categorical features, and class imbalance — making it well-suited for practicing a complete, realistic preprocessing and modeling pipeline rather than a "clean" toy dataset.
  
-### Feature Descriptions
+### Feature Descriptions 
 | Column | Description |
 |--------|-------------|
 | Date | Date of observation |
