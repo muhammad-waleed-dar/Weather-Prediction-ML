@@ -162,6 +162,11 @@ Weather-Prediction-ML/
 ## How to Run
 ```bash
 git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
+cd Weather-Prediction-ML
+```
+**Phase 1 (EDA & Preprocessing):** open `Phase1-EDA/EDA.ipynb` (ensure `weatherAUS.csv` is in the same folder), then run all cells sequentially
+```bash
+git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
 cd Weather-Prediction-ML/Phase1-EDA
 ```
 Open `EDA.ipynb` in VS Code or Jupyter Notebook (ensure `weatherAUS.csv` is in the same folder), then run all cells sequentially.
