@@ -25,7 +25,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 
 ---
  
-## Dataset
+## Dataset 
 | Detail | Info |
 |--------|------|
 | **Source** | [Kaggle — Rain in Australia](https://www.kaggle.com/datasets/jsphyg/weather-dataset-rattle-package) |
