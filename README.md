@@ -141,7 +141,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 
 ---
 
-## Repository Structure
+## Repository Structure 
 ```
 Weather-Prediction-ML/
 ├── Phase1-EDA/
