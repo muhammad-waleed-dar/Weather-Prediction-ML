@@ -128,7 +128,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 
 ---
  
-## Libraries & Tools 
+## Libraries & Tools  
 | Category | Tools |
 |----------|-------|
 | Language | Python 3 |
