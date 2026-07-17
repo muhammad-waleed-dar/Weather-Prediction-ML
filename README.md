@@ -170,7 +170,7 @@ cd Weather-Prediction-ML
  
 ---
 
-## Challenges Encountered
+## Challenges Encountered 
 - **High missing values** — `Sunshine` (48%) and `Cloud9am`/`Cloud3pm` (38–41%) had severe gaps, handled via median/mode imputation to preserve dataset size rather than dropping rows/columns outright.
 - **Severe class imbalance** — ~84% No Rain vs ~16% Rain (post-cleaning), resolved using SMOTE-Tomek.
 - **Mixed data types** — 7 categorical columns required Label Encoding before any numeric operations or modeling could proceed.
