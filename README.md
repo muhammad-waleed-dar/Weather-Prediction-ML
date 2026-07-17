@@ -35,7 +35,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 | **Date Range** | 2007 – 2017 (10 years, multiple Australian locations) |
 | **Problem Type** | Binary Classification |
  
-### Why this dataset?
+### Why this dataset? 
 `weatherAUS.csv` contains real-world weather observations with missing values, categorical features, and class imbalance — making it well-suited for practicing a complete, realistic preprocessing and modeling pipeline rather than a "clean" toy dataset.
  
 ### Feature Descriptions 
