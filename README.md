@@ -93,7 +93,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model.
  
-### Engineered Features
+### Engineered Features 
  
 | Feature | Formula / Source | Why |
 |---------|-------------------|-----|
