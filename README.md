@@ -102,7 +102,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
 | `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
  
-### Visualizations
+### Visualizations 
  
 | # | Plot | Type | Purpose |
 |---|------|------|---------|
