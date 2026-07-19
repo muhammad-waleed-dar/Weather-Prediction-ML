@@ -125,12 +125,6 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
- 
-### Key Findings 
-- `Pressure3pm` and `Humidity3pm` show a clear, visible shift between Rain/No-Rain groups across box, violin, and KDE views.
-- `RainToday` shows strong persistence with `RainTomorrow` — one of the most informative categorical features in the dataset.
-- `Season` shows a real difference in rain probability, validating it as a useful engineered feature.
-- `PressureChange` and `HumidityChange` capture directional movement the raw 9am/3pm snapshots miss on their own.
 
 ---
  
