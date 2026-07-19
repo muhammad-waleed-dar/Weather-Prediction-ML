@@ -126,6 +126,16 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
 
+
+### Key Findings (confirmed against actual notebook output)
+- `Humidity3pm` is the single strongest predictor of `RainTomorrow` by both correlation (0.44) and Mutual Information (0.115) — two independent methods agree.
+- `TempRange` is the 2nd-strongest feature by both correlation (-0.34) and Mutual Information (0.067) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
+- `Sunshine`, `Cloud3pm`, and `Cloud9am` rank 3rd, 4th, and 6th by Mutual Information despite not being included in the original correlation heatmap's feature list — a real finding Mutual Information caught that the heatmap alone couldn't show.
+- `RainToday` shows strong persistence with `RainTomorrow` — rain rate jumps from 15.6% (no rain today) to 46.4% (rain today).
+- `Season`/`Month` show a real seasonal cycle — Winter has the highest rain probability (26.1%), Summer the lowest (20.3%).
+- `PressureChange`, `MinTemp`, and `Temp9am` are the weakest features by both correlation and Mutual Information (`Temp9am` scoring lowest of all) — the strongest candidates to drop before Phase 3 if further feature reduction is needed.
+- Class counts in this notebook (110,316 No / 31,877 Yes) differ from Phase 1's (95,420 / 18,228) because this notebook works from the dataset before Rainfall outlier removal — both are correct for their respective pipeline stage.
+
 ---
  
 ## Libraries & Tools  
