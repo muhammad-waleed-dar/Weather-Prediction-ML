@@ -126,7 +126,6 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
 
-
 ### Key Findings (confirmed against actual notebook output)
 - `Humidity3pm` is the single strongest predictor of `RainTomorrow` by both correlation (0.44) and Mutual Information (0.115) — two independent methods agree.
 - `TempRange` is the 2nd-strongest feature by both correlation (-0.34) and Mutual Information (0.067) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
