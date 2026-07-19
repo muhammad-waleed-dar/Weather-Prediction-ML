@@ -91,18 +91,23 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 **Notebook:** [`Phase2-Visualization/Visualization_FeatureEngineering.ipynb`](./Phase2-Visualization/Visualization_FeatureEngineering.ipynb)
  
-This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model.
+This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model. Every visualization includes a title, axis labels, and a brief written interpretation, per the task requirements.
  
-### Engineered Features 
+### Engineered Features
  
 | Feature | Formula / Source | Why |
 |---------|-------------------|-----|
-| `Month`, `Season` | Extracted from `Date` | Weather is seasonal — Phase 1 dropped `Date` entirely, losing this signal |
+| `Month`, `Season` | Extracted from `Date` (parsed with `format='%d/%m/%Y'`) | Weather is seasonal — Phase 1 dropped `Date` entirely, losing this signal |
 | `TempRange` | `MaxTemp - MinTemp` | A large daily swing behaves differently than a stable day |
 | `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
 | `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
  
-### Visualizations 
+**Redundant feature removed:** `Date` itself is dropped after `Month`/`Season` are extracted from it — its useful signal is preserved, but the unusable raw string is not carried forward.
+
+### Feature Selection
+`SelectKBest` with `mutual_info_classif` ranks all numeric features by mutual information with `RainTomorrow`, complementing the linear Pearson correlation shown in the heatmap — mutual information also captures non-linear relationships the heatmap can miss.
+ 
+### Visualizations
  
 | # | Plot | Type | Purpose |
 |---|------|------|---------|
@@ -116,19 +121,23 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 8 | Pressure3pm density by class | Overlaid KDE | Where the two classes diverge most |
 | 9 | RainToday vs RainTomorrow | Count plot + crosstab | Tests weather "persistence" |
 | 10 | Top 10 Locations by record count | Bar plot | Checks category balance across `Location` |
-| 11 | Monthly rain rate, 2007–2017 | Line plot | Long-term trend, not just single-season snapshot |
+| 11 | Rain rate by calendar month | Line plot | Confirms a real seasonal cycle, not a random pattern |
 | 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
-| 13 | Correlation heatmap (with new features) | Heatmap | Confirms engineered features add real signal |
- 
-### Key Findings 
-- `Pressure3pm` and `Humidity3pm` show a clear, visible shift between Rain/No-Rain groups across box, violin, and KDE views.
-- `RainToday` shows strong persistence with `RainTomorrow` — one of the most informative categorical features in the dataset.
-- `Season` shows a real difference in rain probability, validating it as a useful engineered feature.
-- `PressureChange` and `HumidityChange` capture directional movement the raw 9am/3pm snapshots miss on their own.
+| 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
+| 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
+
+### Key Findings (confirmed against actual notebook output)
+- `Humidity3pm` is the single strongest predictor of `RainTomorrow` by both correlation (0.44) and Mutual Information (0.115) — two independent methods agree.
+- `TempRange` is the 2nd-strongest feature by both correlation (-0.34) and Mutual Information (0.067) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
+- `Sunshine`, `Cloud3pm`, and `Cloud9am` rank 3rd, 4th, and 6th by Mutual Information despite not being included in the original correlation heatmap's feature list — a real finding Mutual Information caught that the heatmap alone couldn't show.
+- `RainToday` shows strong persistence with `RainTomorrow` — rain rate jumps from 15.6% (no rain today) to 46.4% (rain today).
+- `Season`/`Month` show a real seasonal cycle — Winter has the highest rain probability (26.1%), Summer the lowest (20.3%).
+- `PressureChange`, `MinTemp`, and `Temp9am` are the weakest features by both correlation and Mutual Information (`Temp9am` scoring lowest of all) — the strongest candidates to drop before Phase 3 if further feature reduction is needed.
+- Class counts in this notebook (110,316 No / 31,877 Yes) differ from Phase 1's (95,420 / 18,228) because this notebook works from the dataset before Rainfall outlier removal — both are correct for their respective pipeline stage.
 
 ---
  
-## Libraries & Tools  
+## Libraries & Tools
 | Category | Tools |
 |----------|-------|
 | Language | Python 3 |
@@ -141,7 +150,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 
 ---
 
-## Repository Structure 
+## Repository Structure
 ```
 Weather-Prediction-ML/
 ├── Phase1-EDA/
@@ -159,7 +168,7 @@ Weather-Prediction-ML/
 
 ---
  
-## How to Run 
+## How to Run
 ```bash
 git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
 cd Weather-Prediction-ML
