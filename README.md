@@ -125,24 +125,6 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
-
-### Visualizations 
- 
-| # | Plot | Type | Purpose |
-|---|------|------|---------|
-| 1 | RainTomorrow class distribution | Count plot | Confirms class imbalance |
-| 2 | Rainfall distribution | Histogram + KDE | Univariate shape / right-skew check |
-| 3 | Pressure3pm by RainTomorrow | Box plot | Tests "low pressure precedes rain" |
-| 4 | Humidity3pm by RainTomorrow | Box plot | Tests humidity as a rain predictor |
-| 5 | Rain probability by Season | Bar plot | Validates the new `Season` feature |
-| 6 | Humidity3pm vs Pressure3pm | Scatter (hue) | Bivariate class separation |
-| 7 | Humidity3pm by RainTomorrow | Violin plot | Full density shape, not just quartiles |
-| 8 | Pressure3pm density by class | Overlaid KDE | Where the two classes diverge most |
-| 9 | RainToday vs RainTomorrow | Count plot + crosstab | Tests weather "persistence" |
-| 10 | Top 10 Locations by record count | Bar plot | Checks category balance across `Location` |
-| 11 | Monthly rain rate, 2007–2017 | Line plot | Long-term trend, not just single-season snapshot |
-| 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
-| 13 | Correlation heatmap (with new features) | Heatmap | Confirms engineered features add real signal |
  
 ### Key Findings 
 - `Pressure3pm` and `Humidity3pm` show a clear, visible shift between Rain/No-Rain groups across box, violin, and KDE views.
