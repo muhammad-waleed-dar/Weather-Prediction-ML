@@ -93,15 +93,6 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model. Every visualization includes a title, axis labels, and a brief written interpretation, per the task requirements.
  
-### Engineered Features 
- 
-| Feature | Formula / Source | Why |
-|---------|-------------------|-----|
-| `Month`, `Season` | Extracted from `Date` | Weather is seasonal — Phase 1 dropped `Date` entirely, losing this signal |
-| `TempRange` | `MaxTemp - MinTemp` | A large daily swing behaves differently than a stable day |
-| `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
-| `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
-
 ### Engineered Features
  
 | Feature | Formula / Source | Why |
@@ -112,7 +103,29 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
  
 **Redundant feature removed:** `Date` itself is dropped after `Month`/`Season` are extracted from it — its useful signal is preserved, but the unusable raw string is not carried forward.
+
+### Feature Selection
+`SelectKBest` with `mutual_info_classif` ranks all numeric features by mutual information with `RainTomorrow`, complementing the linear Pearson correlation shown in the heatmap — mutual information also captures non-linear relationships the heatmap can miss.
  
+### Visualizations
+ 
+| # | Plot | Type | Purpose |
+|---|------|------|---------|
+| 1 | RainTomorrow class distribution | Count plot | Confirms class imbalance |
+| 2 | Rainfall distribution | Histogram + KDE | Univariate shape / right-skew check |
+| 3 | Pressure3pm by RainTomorrow | Box plot | Tests "low pressure precedes rain" |
+| 4 | Humidity3pm by RainTomorrow | Box plot | Tests humidity as a rain predictor |
+| 5 | Rain probability by Season | Bar plot | Validates the new `Season` feature |
+| 6 | Humidity3pm vs Pressure3pm | Scatter (hue) | Bivariate class separation |
+| 7 | Humidity3pm by RainTomorrow | Violin plot | Full density shape, not just quartiles |
+| 8 | Pressure3pm density by class | Overlaid KDE | Where the two classes diverge most |
+| 9 | RainToday vs RainTomorrow | Count plot + crosstab | Tests weather "persistence" |
+| 10 | Top 10 Locations by record count | Bar plot | Checks category balance across `Location` |
+| 11 | Rain rate by calendar month | Line plot | Confirms a real seasonal cycle, not a random pattern |
+| 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
+| 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
+| 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
+
 ### Visualizations 
  
 | # | Plot | Type | Purpose |
