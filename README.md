@@ -91,7 +91,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 **Notebook:** [`Phase2-Visualization/Visualization_FeatureEngineering.ipynb`](./Phase2-Visualization/Visualization_FeatureEngineering.ipynb)
  
-This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model.
+This notebook reloads the raw dataset (rather than continuing from Phase 1's encoded output) so plots use readable labels — actual month names, `Yes`/`No`, location names — instead of Label-Encoded integers. Encoding happens later, only when data is handed to a model. Every visualization includes a title, axis labels, and a brief written interpretation, per the task requirements.
  
 ### Engineered Features 
  
@@ -101,6 +101,17 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | `TempRange` | `MaxTemp - MinTemp` | A large daily swing behaves differently than a stable day |
 | `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
 | `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
+
+### Engineered Features
+ 
+| Feature | Formula / Source | Why |
+|---------|-------------------|-----|
+| `Month`, `Season` | Extracted from `Date` (parsed with `format='%d/%m/%Y'`) | Weather is seasonal — Phase 1 dropped `Date` entirely, losing this signal |
+| `TempRange` | `MaxTemp - MinTemp` | A large daily swing behaves differently than a stable day |
+| `HumidityChange` | `Humidity3pm - Humidity9am` | Direction of humidity change through the day can signal incoming weather |
+| `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
+ 
+**Redundant feature removed:** `Date` itself is dropped after `Month`/`Season` are extracted from it — its useful signal is preserved, but the unusable raw string is not carried forward.
  
 ### Visualizations 
  
