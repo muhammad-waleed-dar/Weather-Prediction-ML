@@ -9,7 +9,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 
 ---
  
-## Project Roadmap 
+## Project Roadmap
 
 | Phase | Focus | Status |
 |-------|-------|--------|
