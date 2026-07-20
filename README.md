@@ -144,7 +144,7 @@ After fixing the categorical-column exclusion bug, the top 10 features by MI sco
 | 10 | Pressure9am | 0.0297 |
 
 This ranking complements the Pearson correlation heatmap by capturing non-linear relationships.
- 
+
 ### Key Findings
 - `Humidity3pm` is the strongest predictor of `RainTomorrow` by correlation (0.44) — this heatmap result is unaffected by the Mutual Information fix below.
 - `TempRange` is the 2nd-strongest feature by correlation (-0.34) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
