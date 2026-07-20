@@ -125,6 +125,25 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief — now includes categorical features |
+
+### Mutual Information Ranking (Top 10)
+
+After fixing the categorical-column exclusion bug, the top 10 features by MI score are:
+
+| Rank | Feature | MI Score |
+|------|---------|----------|
+| 1 | Humidity3pm | 0.1147 |
+| 2 | TempRange | 0.0671 |
+| 3 | Sunshine | 0.0599 |
+| 4 | Cloud3pm | 0.0586 |
+| 5 | Rainfall | 0.0549 |
+| 6 | RainToday | 0.0421 |
+| 7 | Cloud9am | 0.0421 |
+| 8 | HumidityChange | 0.0385 |
+| 9 | Humidity9am | 0.0379 |
+| 10 | Pressure9am | 0.0297 |
+
+This ranking complements the Pearson correlation heatmap by capturing non-linear relationships.
  
 ### Key Findings
 - `Humidity3pm` is the strongest predictor of `RainTomorrow` by correlation (0.44) — this heatmap result is unaffected by the Mutual Information fix below.
