@@ -63,7 +63,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 **Notebook:** [`Phase1-EDA/EDA.ipynb`](./Phase1-EDA/EDA.ipynb)
  
-13-step preprocessing pipeline:
+13-step preprocessing pipeline: 
  
 | Step | Description |
 |------|-------------|
