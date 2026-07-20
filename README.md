@@ -172,7 +172,7 @@ This ranking complements the Pearson correlation heatmap by capturing non-linear
 ## Repository Structure
 ```
 Weather-Prediction-ML/
-├── weatherAUS.csv              # Single shared copy — referenced by every phase, not duplicated
+├── weatherAUS.csv            
 ├── Phase1-EDA/
 │   ├── EDA.ipynb
 │   └── report.pdf
