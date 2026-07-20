@@ -86,8 +86,8 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 **Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
 
 ---
- 
-## Phase 2: Data Visualization & Feature Engineering ✅
+
+## Phase 2: Feature Engineering & Exploratory Data Visualization ✅
  
 **Notebook:** [`Phase2-Visualization/Visualization_FeatureEngineering.ipynb`](./Phase2-Visualization/Visualization_FeatureEngineering.ipynb)
  
@@ -103,9 +103,9 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | `PressureChange` | `Pressure3pm - Pressure9am` | Falling pressure is a classic precursor to rain |
  
 **Redundant feature removed:** `Date` itself is dropped after `Month`/`Season` are extracted from it — its useful signal is preserved, but the unusable raw string is not carried forward.
-
+  
 ### Feature Selection
-`SelectKBest` with `mutual_info_classif` ranks all numeric features by mutual information with `RainTomorrow`, complementing the linear Pearson correlation shown in the heatmap — mutual information also captures non-linear relationships the heatmap can miss.
+`SelectKBest` with `mutual_info_classif` ranks features by mutual information with `RainTomorrow`, complementing the linear Pearson correlation shown in the heatmap. **Bug fixed:** an earlier version ran this on numeric columns only, which silently excluded `RainToday`, `Location`, `WindGustDir`, `WindDir9am`, `WindDir3pm`, `Month`, and `Season` — all still raw strings at that point. Given the strong persistence effect `RainToday` shows (see below), leaving it out was a real gap. All categorical columns are now Label-Encoded specifically for this step and passed in via `discrete_features`, so `mutual_info_classif` treats them correctly as categorical rather than continuous.
  
 ### Visualizations
  
@@ -124,16 +124,16 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 11 | Rain rate by calendar month | Line plot | Confirms a real seasonal cycle, not a random pattern |
 | 12 | Pairwise feature relationships | Pair plot | Fast multi-feature visual sanity check |
 | 13 | Correlation heatmap (with new features) | Heatmap | Linear relationship check |
-| 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief |
-
-### Key Findings (confirmed against actual notebook output)
-- `Humidity3pm` is the single strongest predictor of `RainTomorrow` by both correlation (0.44) and Mutual Information (0.115) — two independent methods agree.
-- `TempRange` is the 2nd-strongest feature by both correlation (-0.34) and Mutual Information (0.067) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
-- `Sunshine`, `Cloud3pm`, and `Cloud9am` rank 3rd, 4th, and 6th by Mutual Information despite not being included in the original correlation heatmap's feature list — a real finding Mutual Information caught that the heatmap alone couldn't show.
-- `RainToday` shows strong persistence with `RainTomorrow` — rain rate jumps from 15.6% (no rain today) to 46.4% (rain today).
+| 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief — now includes categorical features |
+ 
+### Key Findings
+- `Humidity3pm` is the strongest predictor of `RainTomorrow` by correlation (0.44) — this heatmap result is unaffected by the Mutual Information fix below.
+- `TempRange` is the 2nd-strongest feature by correlation (-0.34) — a genuinely useful engineered feature, not a weak one as initially assumed before the notebook was actually run.
+- `RainToday` shows strong persistence with `RainTomorrow` — rain rate jumps from 15.6% (no rain today) to 46.4% (rain today). It was previously missing from the Mutual Information ranking entirely; re-run Step 4 after the fix to see its actual score alongside the other features.
 - `Season`/`Month` show a real seasonal cycle — Winter has the highest rain probability (26.1%), Summer the lowest (20.3%).
-- `PressureChange`, `MinTemp`, and `Temp9am` are the weakest features by both correlation and Mutual Information (`Temp9am` scoring lowest of all) — the strongest candidates to drop before Phase 3 if further feature reduction is needed.
+- `PressureChange` and `MinTemp` show the weakest correlation with the target (0.08 each) — worth checking against the updated Mutual Information ranking before deciding whether to drop either in Phase 3.
 - Class counts in this notebook (110,316 No / 31,877 Yes) differ from Phase 1's (95,420 / 18,228) because this notebook works from the dataset before Rainfall outlier removal — both are correct for their respective pipeline stage.
+- **Note:** the Mutual Information ranking changed after fixing the categorical-column exclusion bug — read the freshly re-run output rather than relying on any specific scores quoted earlier in this project's development.
 
 ---
  
