@@ -183,19 +183,6 @@ Weather-Prediction-ML/
 ├── .gitignore
 └── README.md
 ```
-```
-Weather-Prediction-ML/
-├── Phase1-EDA/
-│   ├── EDA.ipynb
-│   ├── weatherAUS.csv
-│   └── report.pdf
-├── Phase2-Visualization/
-│   └── Visualization_FeatureEngineering.ipynb
-├── Phase3-ModelTraining/      (upcoming)
-├── Phase4-Evaluation/         (upcoming)
-├── .gitignore
-└── README.md
-```
 *Structure will grow as each phase is added — this section is updated per phase.*
 
 ---
