@@ -1,15 +1,15 @@
-# Weather Prediction Using Machine Learning
+# Weather Prediction Using Machine Learning 
 
 ---
 
-## Project Overview
+## Project Overview 
 This project applies Machine Learning to predict whether it will rain tomorrow (`RainTomorrow`) based on historical daily weather observations from Australia. It is being built as a multi-phase project covering the full ML lifecycle — from data preprocessing to model training, evaluation, and deployment.
 
 **Motivation:** I previously built a Smart Weather Monitoring Station using Arduino and C++. This project extends that interest into the Machine Learning domain by using historical weather data to make predictions rather than just recording live sensor readings.
 
 ---
  
-## Project Roadmap
+## Project Roadmap 
 
 | Phase | Focus | Status |
 |-------|-------|--------|
@@ -59,11 +59,11 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 ---
  
-## Phase 1: EDA & Data Preprocessing ✅ (focuses on preparing a clean, machine-learning-ready dataset)
+## Phase 1: EDA & Data Preprocessing ✅ (focuses on preparing a clean, machine-learning-ready dataset) 
  
 **Notebook:** [`Phase1-EDA/EDA.ipynb`](./Phase1-EDA/EDA.ipynb)
  
-13-step preprocessing pipeline:
+13-step preprocessing pipeline: 
  
 | Step | Description |
 |------|-------------|
