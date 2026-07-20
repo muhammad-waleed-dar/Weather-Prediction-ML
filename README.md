@@ -59,7 +59,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
  
 ---
  
-## Phase 1: EDA & Data Preprocessing ✅ (focuses on preparing a clean, machine-learning-ready dataset)
+## Phase 1: EDA & Data Preprocessing ✅ (focuses on preparing a clean, machine-learning-ready dataset) 
  
 **Notebook:** [`Phase1-EDA/EDA.ipynb`](./Phase1-EDA/EDA.ipynb)
  
