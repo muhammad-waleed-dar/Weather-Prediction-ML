@@ -1,4 +1,4 @@
-# Weather Prediction Using Machine Learning 
+# Weather Prediction Using Machine Learning
 
 ---
 
