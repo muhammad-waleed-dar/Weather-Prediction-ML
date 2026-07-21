@@ -8,7 +8,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 **Motivation:** I previously built a Smart Weather Monitoring Station using Arduino and C++. This project extends that interest into the Machine Learning domain by using historical weather data to make predictions rather than just recording live sensor readings.
 
 ---
- 
+
 ## Project Roadmap
 
 | Phase | Focus | Status |
