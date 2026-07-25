@@ -212,6 +212,45 @@ Running this notebook's cleaning + IQR outlier removal on `Rainfall` produces 11
 SMOTE-Tomek on the training set only: `{No Rain: 76,336 → 76,209, Rain: 14,582 → 76,209}`
 (before/after resampling, on the 90,918-row training split).
  
+### Results (Test Set, Rain Class)
+ 
+| Model | Accuracy | Precision | Recall | F1-Score | Mean F1 (CV) |
+|-------|----------|-----------|--------|----------|--------------|
+| Logistic Regression | 0.7742 | 0.3916 | 0.7364 | 0.5113 | 0.5148 |
+| Decision Tree | 0.7893 | 0.3813 | 0.5038 | 0.4341 | 0.4274 |
+| **Random Forest** | **0.8645** | **0.5804** | 0.5595 | **0.5698** | **0.5643** |
+ 
+### Confusion Matrices (Test Set, 22,730 rows)
+ 
+| Model | TN (No Rain correct) | FP (false alarm) | FN (missed rain) | TP (rain caught) |
+|-------|----|----|----|----|
+| Logistic Regression | 14,912 | 4,172 | 961 | 2,685 |
+| Decision Tree | 16,103 | 2,981 | 1,809 | 1,837 |
+| Random Forest | 17,609 | 1,475 | 1,606 | 2,040 |
+ 
+### Final Model Selection: Random Forest
+ 
+**Random Forest** is selected as the final model. It has the best F1-Score (0.5698) and
+Precision (0.5804) among the three, and its cross-validation F1 (0.5643) sits close to its
+test F1 (0.5698) — a gap of ~0.006, indicating stable, non-overfit performance.
+ 
+**Logistic Regression** shows the highest Recall (0.7364) — it catches more actual rainy
+days — but at a real cost: Precision of only 0.3916 means most of its rain predictions are
+false alarms (4,172 FP vs Random Forest's 1,475).
+ 
+**Decision Tree** performs worst on every metric. Its CV F1 (0.4274) and test F1 (0.4341) are
+close to each other (gap ~0.007), so it isn't overfitting — it's just a consistently weaker
+model than the ensemble, likely because a single tree overfits to training-set noise in ways
+that don't generalize, without the variance-averaging benefit Random Forest gets from many trees.
+ 
+**Trade-off acknowledged:** for a weather-warning use case, missing rain (a false negative) is
+arguably costlier than a false alarm. Logistic Regression misses fewer rainy days (961 vs
+Random Forest's 1,606), but at the cost of vastly more false alarms (4,172 vs 1,475). Random
+Forest is chosen here because it has the best overall F1 balance and the most stable
+cross-validated performance, but this recall/precision trade-off is worth stating explicitly
+in a viva.
+ 
+---
  
 ## Libraries & Tools
 | Category | Tools |
