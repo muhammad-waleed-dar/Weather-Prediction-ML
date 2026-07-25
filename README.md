@@ -126,7 +126,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief — now includes categorical features |
 
 ### Mutual Information Ranking (Top 10)
-
+ 
 After fixing the categorical-column exclusion bug, the top 10 features by MI score are:
 
 | Rank | Feature | MI Score |
