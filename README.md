@@ -293,7 +293,6 @@ cd Weather-Prediction-ML
 **Phase 2 (Visualization & Feature Engineering):** copy `weatherAUS.csv` into `Phase2-Visualization/`, open `Visualization_FeatureEngineering.ipynb`, then run all cells sequentially. This notebook reloads and re-cleans the raw dataset independently of Phase 1's output, so it can be run standalone.
  
 ---
-
 ---
  
 ## How to Run
