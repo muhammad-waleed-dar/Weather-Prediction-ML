@@ -171,6 +171,7 @@ IQR outlier removal on `Rainfall`, so it runs standalone.
 - Cross-validation to assess robustness and generalization
 - Model comparison and written justification for the final model choice
 - Submission: GitHub repository link only, deadline **28 July 2026**
+
 ### Leakage-Free Pipeline Order
  
 Unlike Phase 1/2, this phase involves real train/test evaluation, so preventing data leakage
@@ -196,6 +197,20 @@ never split data):
 | Logistic Regression | Baseline — linear, expected to underperform on non-linear weather thresholds |
 | Decision Tree | Captures non-linear interactions, prone to overfitting on a single tree |
 | Random Forest | Primary/ensemble model — averages many trees, reduces overfitting vs a single tree |
+
+### Dataset Split (this notebook's pipeline)
+ 
+Running this notebook's cleaning + IQR outlier removal on `Rainfall` produces 113,648 rows
+(95,420 No Rain / 18,228 Rain — matching Phase 1's counts), split 80/20 stratified into:
+ 
+| Split | Rows | Rain % |
+|-------|------|--------|
+| Train | 90,918 | 16.0% |
+| Test | 22,730 | 16.0% |
+ 
+SMOTE-Tomek on the training set only: `{No Rain: 76,336 → 76,209, Rain: 14,582 → 76,209}`
+(before/after resampling, on the 90,918-row training split).
+ 
  
 ## Libraries & Tools
 | Category | Tools |
