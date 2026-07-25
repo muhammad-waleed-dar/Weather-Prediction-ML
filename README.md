@@ -155,6 +155,48 @@ This ranking complements the Pearson correlation heatmap by capturing non-linear
 
 ---
  
+## Phase 3: Model Training & Evaluation ✅
+ 
+**Notebook:** [`Phase3-ModelTraining_Evaluation/ModelTraining_Evaluation.ipynb`](./Phase3-ModelTraining_Evaluation/ModelTraining_Evaluation.ipynb)
+ 
+This notebook reloads the raw dataset and reproduces Phase 2's cleaning and engineered
+features (`Month`, `Season`, `TempRange`, `HumidityChange`, `PressureChange`) plus Phase 1's
+IQR outlier removal on `Rainfall`, so it runs standalone.
+ 
+**Task sheet requirements (Classification track):**
+- Models: Logistic Regression, Decision Tree, Random Forest — the boosting/XGBoost-style
+  models considered earlier in this project's development were intentionally left out, since
+  the official task sheet restricts non-taught techniques without prior mentor approval
+- Metrics: Accuracy, Precision, Recall, F1-Score, Confusion Matrix
+- Cross-validation to assess robustness and generalization
+- Model comparison and written justification for the final model choice
+- Submission: GitHub repository link only, deadline **28 July 2026**
+### Leakage-Free Pipeline Order
+ 
+Unlike Phase 1/2, this phase involves real train/test evaluation, so preventing data leakage
+between train and test data is a genuine requirement here (not applicable to Phase 1, which
+never split data):
+ 
+1. Load raw data, reproduce Phase 2 cleaning/feature engineering + Phase 1 outlier removal
+2. Label-encode categorical columns
+3. **Split train/test first** (80/20, stratified) — before any fitting
+4. Scale with `MinMaxScaler`, fit on train only, transform both
+5. Apply **SMOTE-Tomek to the training set only** — the test set is left at its natural
+   ~84/16 imbalance so evaluation metrics reflect real-world performance
+6. Train Logistic Regression, Decision Tree, and Random Forest on the resampled training set
+7. Evaluate all three on the untouched test set (Accuracy, Precision, Recall, F1, Confusion Matrix)
+8. `StratifiedKFold` cross-validation (5-fold) — chosen over plain K-Fold because the target
+   is imbalanced, so a plain fold split risks folds with very few "Rain" rows; SMOTE-Tomek is
+   refit fresh inside each fold via an `imblearn` pipeline to avoid cross-fold leakage
+9. Compare all three models and select the final one
+### Model Roles
+ 
+| Model | Role |
+|-------|------|
+| Logistic Regression | Baseline — linear, expected to underperform on non-linear weather thresholds |
+| Decision Tree | Captures non-linear interactions, prone to overfitting on a single tree |
+| Random Forest | Primary/ensemble model — averages many trees, reduces overfitting vs a single tree |
+ 
 ## Libraries & Tools
 | Category | Tools |
 |----------|-------|
