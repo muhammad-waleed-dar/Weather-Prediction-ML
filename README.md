@@ -83,7 +83,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 **Why outlier removal before scaling?** MinMaxScaler sets its [0,1] range from each column's min/max. Removing extreme Rainfall outliers (e.g. 371mm) *before* scaling keeps those bounds reflective of everyday values rather than being stretched by rare storm events.
  
 **Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
-
+ 
 ---
 
 ## Phase 2: Feature Engineering & Exploratory Data Visualization ✅
