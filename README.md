@@ -170,7 +170,6 @@ IQR outlier removal on `Rainfall`, so it runs standalone.
 - Metrics: Accuracy, Precision, Recall, F1-Score, Confusion Matrix
 - Cross-validation to assess robustness and generalization
 - Model comparison and written justification for the final model choice
-- Submission: GitHub repository link only, deadline **28 July 2026**
 
 ### Leakage-Free Pipeline Order
  
