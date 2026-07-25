@@ -1,14 +1,14 @@
 # Weather Prediction Using Machine Learning
  
 ---
-
+ 
 ## Project Overview 
 This project applies Machine Learning to predict whether it will rain tomorrow (`RainTomorrow`) based on historical daily weather observations from Australia. It is being built as a multi-phase project covering the full ML lifecycle — from data preprocessing to model training, evaluation, and deployment.
 
 **Motivation:** I previously built a Smart Weather Monitoring Station using Arduino and C++. This project extends that interest into the Machine Learning domain by using historical weather data to make predictions rather than just recording live sensor readings.
-
+ 
 ---
-  
+ 
 ## Project Roadmap 
  
 | Phase | Focus | Status |
@@ -83,7 +83,7 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 **Why outlier removal before scaling?** MinMaxScaler sets its [0,1] range from each column's min/max. Removing extreme Rainfall outliers (e.g. 371mm) *before* scaling keeps those bounds reflective of everyday values rather than being stretched by rare storm events.
  
 **Why SMOTE-Tomek?** The dataset was imbalanced (~84% No Rain vs ~16% Rain after cleaning). A model trained on this would be biased toward predicting "No Rain." SMOTE-Tomek oversamples the minority class with synthetic, interpolated samples while removing ambiguous borderline samples — resulting in a cleaner, balanced dataset.
-
+ 
 ---
 
 ## Phase 2: Feature Engineering & Exploratory Data Visualization ✅
@@ -126,7 +126,7 @@ This notebook reloads the raw dataset (rather than continuing from Phase 1's enc
 | 14 | Feature importance via Mutual Information | Bar plot | Non-linear feature selection, required by task brief — now includes categorical features |
 
 ### Mutual Information Ranking (Top 10)
-
+ 
 After fixing the categorical-column exclusion bug, the top 10 features by MI score are:
 
 | Rank | Feature | MI Score |
@@ -152,7 +152,7 @@ This ranking complements the Pearson correlation heatmap by capturing non-linear
 - `PressureChange` and `MinTemp` show the weakest correlation with the target (0.08 each) — worth checking against the updated Mutual Information ranking before deciding whether to drop either in Phase 3.
 - Class counts in this notebook (110,316 No / 31,877 Yes) differ from Phase 1's (95,420 / 18,228) because this notebook works from the dataset before Rainfall outlier removal — both are correct for their respective pipeline stage.
 - **Note:** the Mutual Information ranking changed after fixing the categorical-column exclusion bug — read the freshly re-run output rather than relying on any specific scores quoted earlier in this project's development.
-
+ 
 ---
  
 ## Phase 3: Model Training & Evaluation ✅
@@ -263,7 +263,7 @@ in a viva.
 | Environment | Jupyter Notebook, VS Code |
 | Version Control | Git & GitHub |
 
----
+--- 
  
 ## Repository Structure
 ```
@@ -288,6 +288,7 @@ Weather-Prediction-ML/
 git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
 cd Weather-Prediction-ML
 ```
+
 **Phase 1 (EDA & Preprocessing):** open `Phase1-EDA/EDA.ipynb` in VS Code or Jupyter Notebook (ensure `weatherAUS.csv` is in the same folder), then run all cells sequentially
  
 **Phase 2 (Visualization & Feature Engineering):** copy `weatherAUS.csv` into `Phase2-Visualization/`, open `Visualization_FeatureEngineering.ipynb`, then run all cells sequentially. This notebook reloads and re-cleans the raw dataset independently of Phase 1's output, so it can be run standalone.
