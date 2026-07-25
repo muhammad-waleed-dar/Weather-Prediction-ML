@@ -294,7 +294,6 @@ cd Weather-Prediction-ML
  
 ---
 
- 
 ---
  
 ## How to Run
