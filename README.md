@@ -162,14 +162,6 @@ This ranking complements the Pearson correlation heatmap by capturing non-linear
 This notebook reloads the raw dataset and reproduces Phase 2's cleaning and engineered
 features (`Month`, `Season`, `TempRange`, `HumidityChange`, `PressureChange`) plus Phase 1's
 IQR outlier removal on `Rainfall`, so it runs standalone.
- 
-**Task sheet requirements (Classification track):**
-- Models: Logistic Regression, Decision Tree, Random Forest — the boosting/XGBoost-style
-  models considered earlier in this project's development were intentionally left out, since
-  the official task sheet restricts non-taught techniques without prior mentor approval
-- Metrics: Accuracy, Precision, Recall, F1-Score, Confusion Matrix
-- Cross-validation to assess robustness and generalization
-- Model comparison and written justification for the final model choice
 
 ### Leakage-Free Pipeline Order
  
