@@ -264,23 +264,23 @@ in a viva.
 | Version Control | Git & GitHub |
 
 ---
-
+ 
 ## Repository Structure
 ```
 Weather-Prediction-ML/
-├── weatherAUS.csv            
+├── weatherAUS.csv
 ├── Phase1-EDA/
 │   ├── EDA.ipynb
 │   └── report.pdf
 ├── Phase2-Visualization/
 │   └── Visualization_FeatureEngineering.ipynb
-├── Phase3-ModelTraining/      (upcoming)
-├── Phase4-Evaluation/         (upcoming)
+├── Phase3-ModelTraining_Evaluation/
+│   └── ModelTraining_Evaluation.ipynb
 ├── .gitignore
 └── README.md
 ```
 *Structure will grow as each phase is added — this section is updated per phase.*
-
+ 
 ---
  
 ## How to Run
