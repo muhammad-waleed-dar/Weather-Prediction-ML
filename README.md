@@ -1,7 +1,7 @@
 # Weather Prediction Using Machine Learning
  
 ---
-
+ 
 ## Project Overview 
 This project applies Machine Learning to predict whether it will rain tomorrow (`RainTomorrow`) based on historical daily weather observations from Australia. It is being built as a multi-phase project covering the full ML lifecycle — from data preprocessing to model training, evaluation, and deployment.
 
