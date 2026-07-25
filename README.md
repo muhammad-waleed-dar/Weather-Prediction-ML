@@ -152,7 +152,7 @@ This ranking complements the Pearson correlation heatmap by capturing non-linear
 - `PressureChange` and `MinTemp` show the weakest correlation with the target (0.08 each) — worth checking against the updated Mutual Information ranking before deciding whether to drop either in Phase 3.
 - Class counts in this notebook (110,316 No / 31,877 Yes) differ from Phase 1's (95,420 / 18,228) because this notebook works from the dataset before Rainfall outlier removal — both are correct for their respective pipeline stage.
 - **Note:** the Mutual Information ranking changed after fixing the categorical-column exclusion bug — read the freshly re-run output rather than relying on any specific scores quoted earlier in this project's development.
-
+ 
 ---
  
 ## Phase 3: Model Training & Evaluation ✅
