@@ -190,6 +190,7 @@ never split data):
    is imbalanced, so a plain fold split risks folds with very few "Rain" rows; SMOTE-Tomek is
    refit fresh inside each fold via an `imblearn` pipeline to avoid cross-fold leakage
 9. Compare all three models and select the final one
+
 ### Model Roles
  
 | Model | Role |
