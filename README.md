@@ -294,6 +294,22 @@ cd Weather-Prediction-ML
  
 ---
 
+ 
+---
+ 
+## How to Run
+```bash
+git clone https://github.com/muhammad-waleed-dar/Weather-Prediction-ML.git
+cd Weather-Prediction-ML
+```
+**Phase 1 (EDA & Preprocessing):** open `Phase1-EDA/EDA.ipynb` in VS Code or Jupyter Notebook (ensure `weatherAUS.csv` is in the same folder), then run all cells sequentially
+ 
+**Phase 2 (Visualization & Feature Engineering):** copy `weatherAUS.csv` into `Phase2-Visualization/`, open `Visualization_FeatureEngineering.ipynb`, then run all cells sequentially. This notebook reloads and re-cleans the raw dataset independently of Phase 1's output, so it can be run standalone.
+ 
+**Phase 3 (Model Training & Evaluation):** open `Phase3-ModelTraining_Evaluation/ModelTraining_Evaluation.ipynb` (it loads `weatherAUS.csv` via `../weatherAUS.csv` from the repo root), then run all cells sequentially. This notebook also reloads and re-cleans the raw dataset independently, so it can be run standalone.
+ 
+---
+
 ## Challenges Encountered  
 - **High missing values** — `Sunshine` (48%) and `Cloud9am`/`Cloud3pm` (38–41%) had severe gaps, handled via median/mode imputation to preserve dataset size rather than dropping rows/columns outright.
 - **Severe class imbalance** — ~84% No Rain vs ~16% Rain (post-cleaning), resolved using SMOTE-Tomek.
