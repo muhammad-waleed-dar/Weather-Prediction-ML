@@ -295,7 +295,7 @@ Weather-Prediction-ML/
 │   └── feature_columns.joblib
 ├── src/
 │   ├── utils.py                    (shared feature list, categorical columns, threshold)
-│   ├── preprocessing.py
+│   ├── preprocessing.py            (cleaning only: nulls, duplicates, outliers)
 │   ├── feature_engineering.py
 │   ├── model_loader.py
 │   ├── predict.py
