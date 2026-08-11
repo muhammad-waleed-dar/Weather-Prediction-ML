@@ -315,6 +315,38 @@ constructed in Phase 2/3.
 The app applies the same **0.35 decision threshold** selected during Phase 3
 threshold-tuning, rather than the model's default 0.5.
  
+ ---
+ 
+## Phase 5: Full Application Development & Deployment ✅
+ 
+The basic Phase 4 setup was verified end-to-end and finalized into the complete
+application: the trained model, scaler, encoders, and feature order are loaded
+once via `@st.cache_resource`, the Streamlit form accepts all 26 raw feature
+inputs, routes them through `predict.py`'s inference pipeline, and displays the
+result (label, probability, and a custom probability gauge) back to the user.
+ 
+### Model Adjustment
+The initial trained model (`max_depth` unrestricted) serialized to 205 MB,
+exceeding GitHub's 100 MB file size limit. `RandomForestClassifier` was
+retrained with `max_depth=20` and saved with `joblib.dump(..., compress=3)`,
+reducing the file to ~32 MB with no meaningful loss in performance:
+ 
+| Threshold | Recall (Rain) | Precision (Rain) | F1-Score |
+|-----------|----------------|-------------------|----------|
+| 0.50 (default) | 0.6122 | 0.5443 | 0.5762 |
+| 0.35 (chosen) | 0.7948 | 0.4215 | 0.5508 |
+ 
+### Verification
+The full pipeline was tested live end-to-end (not just syntax-checked):
+`train_model.py` was run against the real `weatherAUS.csv` (113,648 rows after
+cleaning), producing all four `.joblib` artifacts, and the Streamlit app was
+launched and used to generate a real prediction from user input, confirming
+the complete notebook → serialized model → interface → prediction flow works
+correctly.
+ 
+### Submission
+Repository: [github.com/muhammad-waleed-dar/Weather-Prediction-ML](https://github.com/muhammad-waleed-dar/Weather-Prediction-ML)
+ 
 ---
  
 ## Libraries & Tools
@@ -342,20 +374,20 @@ Weather-Prediction-ML/
 │   └── ModelTraining_Evaluation.ipynb
 ├── data/
 │   └── weatherAUS.csv
-├── models/                         (created by train_model.py)
+├── models/
 │   ├── random_forest_model.joblib
 │   ├── scaler.joblib
 │   ├── encoders.joblib
 │   └── feature_columns.joblib
 ├── src/
-│   ├── utils.py                    (shared feature list, categorical columns, threshold)
-│   ├── preprocessing.py            (cleaning only: nulls, duplicates, outliers)
-│   ├── feature_engineering.py      (Month/Season/TempRange/etc. + categorical encoding)
-│   ├── model_loader.py             (loads the saved model/scaler/encoders/columns)
-│   ├── predict.py                  (inference pipeline — uses model_loader + feature_engineering)
-│   └── train_model.py              (orchestrates the pipeline, saves all artifacts)
+│   ├── utils.py
+│   ├── preprocessing.py
+│   ├── feature_engineering.py
+│   ├── model_loader.py
+│   ├── predict.py
+│   └── train_model.py
 ├── app/
-│   └── streamlit_app.py            (basic working UI)
+│   └── streamlit_app.py
 ├── requirements.txt
 ├── .gitignore
 └── README.md
