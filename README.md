@@ -298,7 +298,7 @@ Weather-Prediction-ML/
 │   ├── preprocessing.py            (cleaning only: nulls, duplicates, outliers)
 │   ├── feature_engineering.py      (Month/Season/TempRange/etc. + categorical encoding)
 │   ├── model_loader.py             (loads the saved model/scaler/encoders/columns)
-│   ├── predict.py
+│   ├── predict.py                  (inference pipeline — uses model_loader + feature_engineering)
 │   └── train_model.py
 ├── app/
 │   └── streamlit_app.py            (basic working UI)
