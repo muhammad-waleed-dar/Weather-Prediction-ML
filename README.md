@@ -10,15 +10,14 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 ---
  
 ## Project Roadmap 
- 
+
 | Phase | Focus | Status |
 |-------|-------|--------|
 | **Phase 1** | Dataset Selection, EDA & Data Preprocessing | ✅ Complete |
 | **Phase 2** | Data Visualization & Feature Engineering | ✅ Complete |
 | **Phase 3** | Model Training & Evaluation (Logistic Regression, Decision Tree, Random Forest) | ✅ Complete |
-| **Phase 4** | Hyperparameter Tuning | ⏳ Upcoming |
-| **Phase 5** | Feature Importance Analysis | ⏳ Upcoming |
-| **Phase 6** | Model Saving / Deployment | ⏳ Upcoming |
+| **Phase 4** | Project Structure & Backend Setup (scripts, model serialization, basic app) | ✅ Complete |
+| **Phase 5** | Full Application Development & Deployment | ✅ Complete |
  
 *This README will be updated as each phase is completed to reflect the latest project state.*
  
