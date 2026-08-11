@@ -408,6 +408,20 @@ cd Weather-Prediction-ML
  
 **Phase 3 (Model Training & Evaluation):** open `Phase3-ModelTraining_Evaluation/ModelTraining_Evaluation.ipynb` (it loads `weatherAUS.csv` via `../weatherAUS.csv` from the repo root), then run all cells sequentially. This notebook also reloads and re-cleans the raw dataset independently, so it can be run standalone.
  
+**Phase 4 (Project Structure & Backend Setup):**
+```bash
+python -m venv venv
+source venv/bin/activate        # venv\Scripts\activate on Windows
+pip install -r requirements.txt
+pip freeze > requirements.txt   # lock exact installed versions
+ 
+# place weatherAUS.csv into data/, then:
+cd src
+python train_model.py           # trains model, saves .joblib files into models/
+ 
+cd ..
+streamlit run app/streamlit_app.py   # launches the interface
+```
 ---
 
 ## Challenges Encountered  
