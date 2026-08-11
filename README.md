@@ -263,6 +263,60 @@ use case.
  
 ---
  
+## Phase 4: Project Structure & Backend Setup ✅
+ 
+As the fourth implementation milestone, the notebook-based model from Phase 3 is being
+converted into a deployable application: a clean modular folder structure, reusable Python
+scripts, model serialization, and a basic working interface.
+ 
+### Project Structure
+```
+Weather-Prediction-ML/
+├── data/
+│   └── weatherAUS.csv
+├── models/                       (created by train_model.py)
+│   ├── random_forest_model.joblib
+│   ├── scaler.joblib
+│   ├── encoders.joblib
+│   └── feature_columns.joblib
+├── src/
+│   ├── utils.py                  (shared feature list, categorical columns, threshold)
+│   ├── preprocessing.py          (cleaning only: nulls, duplicates, outliers)
+│   ├── feature_engineering.py    (Month/Season/TempRange/etc. + categorical encoding)
+│   ├── model_loader.py           (loads the saved model/scaler/encoders/columns)
+│   ├── predict.py                (inference pipeline — uses model_loader + feature_engineering)
+│   └── train_model.py            (orchestrates the pipeline, saves all artifacts)
+├── app/
+│   └── streamlit_app.py          (basic working UI)
+└── requirements.txt
+```
+ 
+### Script Breakdown
+Each script has exactly one job, matching the task sheet's suggested separation:
+- **`preprocessing.py`** — cleans the raw CSV (nulls, duplicates, outlier removal). No feature engineering, no encoding.
+- **`feature_engineering.py`** — derives `Month`/`Season`/`TempRange`/`HumidityChange`/`PressureChange`, and holds a shared `encode_categoricals()` function used by *both* training (fits new encoders) and prediction (reuses them) — this keeps training and inference from ever drifting apart.
+- **`model_loader.py`** — loads the four saved `.joblib` files. Nothing else.
+- **`predict.py`** — the actual inference sequence: reorder columns → encode → scale → predict.
+- **`train_model.py`** — orchestrates preprocessing → feature engineering → split → scale → SMOTE-Tomek → train → save. This is the only script that needs `weatherAUS.csv`.
+### Model Serialization
+The trained Random Forest, fitted `MinMaxScaler`, fitted `LabelEncoder`s (one per
+categorical column), and the exact training feature-column order are saved via **Joblib**
+so the application loads them instead of retraining on every run.
+ 
+### Interface Choice: Streamlit
+Streamlit was chosen over FastAPI/Flask since the deliverable is a directly-usable,
+visual demo (not an API for another service to call), and it lets the app be built in
+pure Python — no HTML/CSS/JS. Categorical inputs (Location, wind directions, RainToday)
+are populated directly from the fitted encoders' known categories, and the engineered
+features (`Month`, `Season`, `TempRange`, `HumidityChange`, `PressureChange`) are derived
+automatically from the raw inputs rather than asked separately, matching how they were
+constructed in Phase 2/3.
+ 
+The app applies the same **0.35 decision threshold** selected during Phase 3
+threshold-tuning, rather than the model's default 0.5.
+ 
+---
+ 
 ## Libraries & Tools
 | Category | Tools |
 |----------|-------|
