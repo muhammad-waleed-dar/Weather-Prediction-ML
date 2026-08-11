@@ -273,13 +273,12 @@ use case.
 | Visualization | Matplotlib, Seaborn |
 | Environment | Jupyter Notebook, VS Code |
 | Version Control | Git & GitHub |
-
+ 
 --- 
  
 ## Repository Structure
 ```
 Weather-Prediction-ML/
-├── weatherAUS.csv
 ├── Phase1-EDA/
 │   ├── EDA.ipynb
 │   └── report.pdf
@@ -287,6 +286,23 @@ Weather-Prediction-ML/
 │   └── Visualization_FeatureEngineering.ipynb
 ├── Phase3-ModelTraining_Evaluation/
 │   └── ModelTraining_Evaluation.ipynb
+├── data/
+│   └── weatherAUS.csv
+├── models/                         (created by train_model.py)
+│   ├── random_forest_model.joblib
+│   ├── scaler.joblib
+│   ├── encoders.joblib
+│   └── feature_columns.joblib
+├── src/
+│   ├── utils.py
+│   ├── preprocessing.py
+│   ├── feature_engineering.py
+│   ├── model_loader.py
+│   ├── predict.py
+│   └── train_model.py
+├── app/
+│   └── streamlit_app.py            (basic working UI)
+├── requirements.txt
 ├── .gitignore
 └── README.md
 ```
