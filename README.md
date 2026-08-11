@@ -294,7 +294,7 @@ Weather-Prediction-ML/
 │   ├── encoders.joblib
 │   └── feature_columns.joblib
 ├── src/
-│   ├── utils.py
+│   ├── utils.py                    (shared feature list, categorical columns, threshold)
 │   ├── preprocessing.py
 │   ├── feature_engineering.py
 │   ├── model_loader.py
