@@ -390,6 +390,7 @@ Weather-Prediction-ML/
 │   └── streamlit_app.py
 ├── requirements.txt
 ├── .gitignore
+├── Phase4_Report.pdf
 └── README.md
 ```
 *Structure will grow as each phase is added — this section is updated per phase.*
