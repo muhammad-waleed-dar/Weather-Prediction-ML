@@ -10,15 +10,14 @@ This project applies Machine Learning to predict whether it will rain tomorrow (
 ---
  
 ## Project Roadmap 
- 
+
 | Phase | Focus | Status |
 |-------|-------|--------|
 | **Phase 1** | Dataset Selection, EDA & Data Preprocessing | ✅ Complete |
 | **Phase 2** | Data Visualization & Feature Engineering | ✅ Complete |
 | **Phase 3** | Model Training & Evaluation (Logistic Regression, Decision Tree, Random Forest) | ✅ Complete |
-| **Phase 4** | Hyperparameter Tuning | ⏳ Upcoming |
-| **Phase 5** | Feature Importance Analysis | ⏳ Upcoming |
-| **Phase 6** | Model Saving / Deployment | ⏳ Upcoming |
+| **Phase 4** | Project Structure & Backend Setup (scripts, model serialization, basic app) | ✅ Complete |
+| **Phase 5** | Full Application Development & Deployment | ✅ Complete |
  
 *This README will be updated as each phase is completed to reflect the latest project state.*
  
@@ -264,6 +263,92 @@ use case.
  
 ---
  
+## Phase 4: Project Structure & Backend Setup ✅
+ 
+As the fourth implementation milestone, the notebook-based model from Phase 3 is being
+converted into a deployable application: a clean modular folder structure, reusable Python
+scripts, model serialization, and a basic working interface.
+ 
+### Project Structure
+```
+Weather-Prediction-ML/
+├── data/
+│   └── weatherAUS.csv
+├── models/                       (created by train_model.py)
+│   ├── random_forest_model.joblib
+│   ├── scaler.joblib
+│   ├── encoders.joblib
+│   └── feature_columns.joblib
+├── src/
+│   ├── utils.py                  (shared feature list, categorical columns, threshold)
+│   ├── preprocessing.py          (cleaning only: nulls, duplicates, outliers)
+│   ├── feature_engineering.py    (Month/Season/TempRange/etc. + categorical encoding)
+│   ├── model_loader.py           (loads the saved model/scaler/encoders/columns)
+│   ├── predict.py                (inference pipeline — uses model_loader + feature_engineering)
+│   └── train_model.py            (orchestrates the pipeline, saves all artifacts)
+├── app/
+│   └── streamlit_app.py          (basic working UI)
+└── requirements.txt
+```
+ 
+### Script Breakdown
+Each script has exactly one job, matching the task sheet's suggested separation:
+- **`preprocessing.py`** — cleans the raw CSV (nulls, duplicates, outlier removal). No feature engineering, no encoding.
+- **`feature_engineering.py`** — derives `Month`/`Season`/`TempRange`/`HumidityChange`/`PressureChange`, and holds a shared `encode_categoricals()` function used by *both* training (fits new encoders) and prediction (reuses them) — this keeps training and inference from ever drifting apart.
+- **`model_loader.py`** — loads the four saved `.joblib` files. Nothing else.
+- **`predict.py`** — the actual inference sequence: reorder columns → encode → scale → predict.
+- **`train_model.py`** — orchestrates preprocessing → feature engineering → split → scale → SMOTE-Tomek → train → save. This is the only script that needs `weatherAUS.csv`.
+### Model Serialization
+The trained Random Forest, fitted `MinMaxScaler`, fitted `LabelEncoder`s (one per
+categorical column), and the exact training feature-column order are saved via **Joblib**
+so the application loads them instead of retraining on every run.
+ 
+### Interface Choice: Streamlit
+Streamlit was chosen over FastAPI/Flask since the deliverable is a directly-usable,
+visual demo (not an API for another service to call), and it lets the app be built in
+pure Python — no HTML/CSS/JS. Categorical inputs (Location, wind directions, RainToday)
+are populated directly from the fitted encoders' known categories, and the engineered
+features (`Month`, `Season`, `TempRange`, `HumidityChange`, `PressureChange`) are derived
+automatically from the raw inputs rather than asked separately, matching how they were
+constructed in Phase 2/3.
+ 
+The app applies the same **0.35 decision threshold** selected during Phase 3
+threshold-tuning, rather than the model's default 0.5.
+ 
+ ---
+ 
+## Phase 5: Full Application Development & Deployment ✅
+ 
+The basic Phase 4 setup was verified end-to-end and finalized into the complete
+application: the trained model, scaler, encoders, and feature order are loaded
+once via `@st.cache_resource`, the Streamlit form accepts all 26 raw feature
+inputs, routes them through `predict.py`'s inference pipeline, and displays the
+result (label, probability, and a custom probability gauge) back to the user.
+ 
+### Model Adjustment
+The initial trained model (`max_depth` unrestricted) serialized to 205 MB,
+exceeding GitHub's 100 MB file size limit. `RandomForestClassifier` was
+retrained with `max_depth=20` and saved with `joblib.dump(..., compress=3)`,
+reducing the file to ~32 MB with no meaningful loss in performance:
+ 
+| Threshold | Recall (Rain) | Precision (Rain) | F1-Score |
+|-----------|----------------|-------------------|----------|
+| 0.50 (default) | 0.6122 | 0.5443 | 0.5762 |
+| 0.35 (chosen) | 0.7948 | 0.4215 | 0.5508 |
+ 
+### Verification
+The full pipeline was tested live end-to-end (not just syntax-checked):
+`train_model.py` was run against the real `weatherAUS.csv` (113,648 rows after
+cleaning), producing all four `.joblib` artifacts, and the Streamlit app was
+launched and used to generate a real prediction from user input, confirming
+the complete notebook → serialized model → interface → prediction flow works
+correctly.
+ 
+### Submission
+Repository: [github.com/muhammad-waleed-dar/Weather-Prediction-ML](https://github.com/muhammad-waleed-dar/Weather-Prediction-ML)
+ 
+---
+ 
 ## Libraries & Tools
 | Category | Tools |
 |----------|-------|
@@ -274,13 +359,12 @@ use case.
 | Visualization | Matplotlib, Seaborn |
 | Environment | Jupyter Notebook, VS Code |
 | Version Control | Git & GitHub |
-
+ 
 --- 
  
 ## Repository Structure
 ```
 Weather-Prediction-ML/
-├── weatherAUS.csv
 ├── Phase1-EDA/
 │   ├── EDA.ipynb
 │   └── report.pdf
@@ -288,7 +372,25 @@ Weather-Prediction-ML/
 │   └── Visualization_FeatureEngineering.ipynb
 ├── Phase3-ModelTraining_Evaluation/
 │   └── ModelTraining_Evaluation.ipynb
+├── data/
+│   └── weatherAUS.csv
+├── models/
+│   ├── random_forest_model.joblib
+│   ├── scaler.joblib
+│   ├── encoders.joblib
+│   └── feature_columns.joblib
+├── src/
+│   ├── utils.py
+│   ├── preprocessing.py
+│   ├── feature_engineering.py
+│   ├── model_loader.py
+│   ├── predict.py
+│   └── train_model.py
+├── app/
+│   └── streamlit_app.py
+├── requirements.txt
 ├── .gitignore
+├── Phase4_Report.pdf
 └── README.md
 ```
 *Structure will grow as each phase is added — this section is updated per phase.*
@@ -307,6 +409,20 @@ cd Weather-Prediction-ML
  
 **Phase 3 (Model Training & Evaluation):** open `Phase3-ModelTraining_Evaluation/ModelTraining_Evaluation.ipynb` (it loads `weatherAUS.csv` via `../weatherAUS.csv` from the repo root), then run all cells sequentially. This notebook also reloads and re-cleans the raw dataset independently, so it can be run standalone.
  
+**Phase 4 (Project Structure & Backend Setup):**
+```bash
+python -m venv venv
+source venv/bin/activate        # venv\Scripts\activate on Windows
+pip install -r requirements.txt
+pip freeze > requirements.txt   # lock exact installed versions
+ 
+# place weatherAUS.csv into data/, then:
+cd src
+python train_model.py           # trains model, saves .joblib files into models/
+ 
+cd ..
+streamlit run app/streamlit_app.py   # launches the interface
+```
 ---
 
 ## Challenges Encountered  
