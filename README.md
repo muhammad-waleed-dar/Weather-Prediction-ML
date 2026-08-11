@@ -296,7 +296,7 @@ Weather-Prediction-ML/
 ├── src/
 │   ├── utils.py                    (shared feature list, categorical columns, threshold)
 │   ├── preprocessing.py            (cleaning only: nulls, duplicates, outliers)
-│   ├── feature_engineering.py
+│   ├── feature_engineering.py      (Month/Season/TempRange/etc. + categorical encoding)
 │   ├── model_loader.py
 │   ├── predict.py
 │   └── train_model.py
